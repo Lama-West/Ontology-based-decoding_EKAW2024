@@ -23,9 +23,10 @@ pip install -r requirements.txt
 ```
 
 ## Prompt formats
-All prompt formats are given in the file `src/prompts.py` in the format of variables. 
+All prompt formats are given in the file `src/prompts.py`.
 
-The prompt used to extract information from a clinical note according to a given concept is given by :
+### Extraction
+The prompt used to extract information from a clinical note according to a given concept for all variants of the extraction step (greedy search, diverse beam search, our constrained decoding method) is given by :
 ```
 """Here is a clinical note about a patient : 
 -------------------
@@ -36,6 +37,7 @@ In a short sentence, summarize everything related to the "{concept}" concept men
 If the concept is not mentioned in the note, respond with 'N/A'.
 """
 ```
+
 For example, if the concept is Tachycardia, the prompt would like like (note that we cannot put a real clinical note from MIMIC-III as it requires access to the database) : 
 ```
 """Here is a clinical note about a patient : 
@@ -48,7 +50,25 @@ If the concept is not mentioned in the note, respond with 'N/A'.
 """
 ```
 
-For domain adaptation, the prompt format for our method looks like (note that we do not need to specify the domain since the pruning phase should take care of removing all irrelevant concepts): 
+### Domain adaptation
+For domain adaptation, the prompt format for the baselines (greedy search and diverse beam search) is :
+```
+Here are some clinical notes that were structured by concepts. Every sequence of '=' indicates a different note about the same patient made by a different clinician :
+
+============
+{CSR of clinical note 1}
+============
+{CSR of clinical note 2}
+============
+...
+============
+
+Summarize these clinical notes in a short text by focusing on concepts related to the {domain} domain.
+
+```
+
+
+As for our method, the prompt format is (note that we do not need to specify the domain since the pruning phase should take care of removing all irrelevant concepts): 
 ```
 Here are some clinical notes that were structured by concepts. Every sequence of '=' indicates a different note about the same patient made by a different clinician :
 
@@ -61,6 +81,39 @@ Here are some clinical notes that were structured by concepts. Every sequence of
 ============
 
 Summarize these clinical notes in a short text.
+
+```
+
+### BHC Task
+For the BHC task, the following prompt format is used for the baselines (greedy search, diverse beam search) :
+```
+Here are a patient's clinical notes separated by sequences of '='. 
+
+===========
+{clinical note 1}
+===========
+{clinical note 2}
+===========
+...
+===========
+
+In a short text, summarize the events occurring to the patient during the hospital stay, the surgical, medical and other consults the patient experienced and the hospital procedures the patient experienced.
+
+```
+
+For our method, this prompt format is used :
+```
+Here are a patient's clinical notes organized as a series of key-value pairs. Keys represent medical concepts and values provide specific details, observations, or interpretations about the patient related to the key.
+
+===========
+{CSR 1}
+===========
+{CSR 2}
+===========
+...
+===========
+
+In a short text, summarize the events occurring to the patient during the hospital stay, the surgical, medical and other consults the patient experienced and the hospital procedures the patient experienced.
 
 ```
 
