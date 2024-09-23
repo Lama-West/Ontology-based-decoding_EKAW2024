@@ -1,7 +1,7 @@
 # Ontology-based constrained decoding - EKAW 2024
 
 ## Overview
-This is the repository for the paper "Ontology-Constrained Generation of Domain-Specific Clinical Summaries" accepted at EKAW 2024. This method is a special domain adaptation technique based on dyanimc prompting and constrained beam search. The beam search algorithm is guided with an ontology.
+This is the repository for the paper "Ontology-Constrained Generation of Domain-Specific Clinical Summaries" accepted at EKAW 2024. This method is a special domain adaptation technique based on dynamic prompting and constrained beam search. The beam search algorithm is guided with an ontology.
 
 ## Prerequisites
 
@@ -37,8 +37,7 @@ In a short sentence, summarize everything related to the "{concept}" concept men
 If the concept is not mentioned in the note, respond with 'N/A'.
 """
 ```
-
-For example, if the concept is Tachycardia, the prompt would like like (note that we cannot put a real clinical note from MIMIC-III as it requires access to the database) : 
+For example, if the concept is Tachycardia, the prompt would look like (note that we cannot put a real clinical note from MIMIC-III as it requires access to the database) : 
 ```
 """Here is a clinical note about a patient : 
 -------------------
@@ -106,9 +105,9 @@ For our method, this prompt format is used :
 Here are a patient's clinical notes organized as a series of key-value pairs. Keys represent medical concepts and values provide specific details, observations, or interpretations about the patient related to the key.
 
 ===========
-{CSR 1}
+{CSR of clinical note 1}
 ===========
-{CSR 2}
+{CSR of clinical note 2}
 ===========
 ...
 ===========
