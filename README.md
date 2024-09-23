@@ -3,15 +3,13 @@
 ## Overview
 This is the repository for the paper "Ontology-Constrained Generation of Domain-Specific Clinical Summaries" accepted at EKAW 2024. This method is a special domain adaptation technique based on dyanimc prompting and constrained beam search. The beam search algorithm is guided with an ontology.
 
-LAMA-WeSt lab: http://www.labowest.ca/
-
-## Pre-requisites
+## Prerequisites
 
 You will need access to the following ressources :
-- [MIMIC-III](https://physionet.org/content/mimiciii/1.4/)
-- [SNOMED-CT](https://www.snomed.org/)
-  - You must have access to the .owx file. When downloading the ontology, it will not be given in an .owx format. Use a converter (e.g. protege) to get the .owx format.
-- [MedCAT Annotator Tool](https://github.com/CogStack/MedCAT)
+- [MIMIC-III](https://physionet.org/content/mimiciii/1.4/) : Database of 1.4 million clinical notes regrouping over 40,000 admissions. Each admission is associated to multiple clinical notes written across various domains (Nursing, Radiology, ECG, ...). To have access to this database, you will need a PhysioNet account.
+- [SNOMED-CT](https://www.snomed.org/) : The SNOMED-CT ontology is a medical ontology regrouping multiple medical domains. It determines a standard for medical terms.
+  - You must have access to the .owx file. When downloading the ontology, it might not be given in an .owx format. Use a converter (e.g. protege) to get the .owx format.
+- [MedCAT Annotator Tool](https://github.com/CogStack/MedCAT) : Annotator used to extract information from Electronic Health Records (EHRs). It links a sequence of characters to a concept in the SNOMED ontology.
 
 ## Getting started
 Clone the repository
@@ -27,14 +25,13 @@ pip install -r requirements.txt
 ## Prompt formats
 All prompt formats are given in the file `src/prompts.py`. 
 
-### Extraction
-For example, the prompt used to extract all procedures from a clinical note is given by :
+For example, the prompt used to extract information from a clinical note according to a given concept is given by :
 ```
 """Here is a clinical note about a patient : 
 -------------------
 {clinical_note}
 -------------------
-In a short sentence, summarize everything related to the "Procedure" concept mentioned the clinical note. \n\n If the concept is not mentioned in the note, respond with 'N/A'.
+In a short sentence, summarize everything related to the "{concept}" concept mentioned the clinical note. {procedures}. \n\n If the concept is not mentioned in the note, respond with 'N/A'.
 """
 
 ```
@@ -86,7 +83,7 @@ model, tokenizer = load_hf_checkpoint(model_path, padding_side='left', use_quant
 ```python
 # Load ontology
 snomed_path = config.get('paths', 'snomed_ct')
-snomed = SNOMED(snomed_path, cache_path='tmp/', nb_classes=366771)
+snomed = SNOMED(snomed_path, cache_path='./', nb_classes=366771)
 ```
 ```python
 # Load annotator
@@ -158,4 +155,5 @@ verbalizer.start(
 
 ```
 
-##
+# Resources
+LAMA-WeSt lab: http://www.labowest.ca/
