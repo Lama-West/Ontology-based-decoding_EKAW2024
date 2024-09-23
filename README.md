@@ -36,7 +36,7 @@ In a short sentence, summarize everything related to the "{concept}" concept men
 If the concept is not mentioned in the note, respond with 'N/A'.
 """
 ```
-For example, if the concept is Tachycardia, the prompt would like like (note that we cannot put a real clinical note from MIMIC-III as it requires access to the database) : 
+For example, if the concept is Tachycardia, the prompt would look like (note that we cannot put a real clinical note from MIMIC-III as it requires access to the database) : 
 ```
 """Here is a clinical note about a patient : 
 -------------------
