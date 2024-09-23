@@ -25,14 +25,42 @@ pip install -r requirements.txt
 ## Prompt formats
 All prompt formats are given in the file `src/prompts.py`. 
 
-For example, the prompt used to extract information from a clinical note according to a given concept is given by :
+The prompt used to extract information from a clinical note according to a given concept is given by :
 ```
 """Here is a clinical note about a patient : 
 -------------------
 {clinical_note}
 -------------------
-In a short sentence, summarize everything related to the "{concept}" concept mentioned the clinical note. {procedures}. \n\n If the concept is not mentioned in the note, respond with 'N/A'.
+In a short sentence, summarize everything related to the "{concept}" concept mentioned the clinical note. {properties}. 
+
+If the concept is not mentioned in the note, respond with 'N/A'.
 """
+```
+For example, if the concept is Tachycardia, the prompt would like like (note that we cannot put a real clinical note from MIMIC-III as it requires access to the database) : 
+```
+"""Here is a clinical note about a patient : 
+-------------------
+{clinical_note}
+-------------------
+In a short sentence, summarize everything related to the "Tachycardia" concept mentioned the clinical note. Tachycardia is characterized by heart rate increased. 
+
+If the concept is not mentioned in the note, respond with 'N/A'.
+"""
+```
+
+For domain adaptation, the prompt format for our method looks like (note that we do not need to specify the domain since the pruning phase should take care of removing all irrelevant concepts): 
+```
+Here are some clinical notes that were structured by concepts. Every sequence of '=' indicates a different note about the same patient made by a different clinician :
+
+============
+{CSR of clinical note 1}
+============
+{CSR of clinical note 2}
+============
+...
+============
+
+Summarize these clinical notes in a short text.
 
 ```
 
