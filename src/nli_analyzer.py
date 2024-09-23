@@ -44,10 +44,6 @@ class NLIAnalyzer:
                     continue
                 formatted_statements.append(s.replace('. ', '').strip().replace(',', ''))
 
-            if len(document) > 1536:
-                # print('Skipping document')
-                continue
-
             output = self.classifier(document, formatted_statements, multi_label=True)
             if np.all(np.isclose(output['scores'], output['scores'][0])):
                 best_statement = -1

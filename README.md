@@ -23,7 +23,7 @@ pip install -r requirements.txt
 ```
 
 ## Prompt formats
-All prompt formats are given in the file `src/prompts.py`. 
+All prompt formats are given in the file `src/prompts.py` in the format of variables. 
 
 The prompt used to extract information from a clinical note according to a given concept is given by :
 ```
@@ -67,8 +67,9 @@ Summarize these clinical notes in a short text.
 ## Inference
 ### Domain Class Frequency
 To adapt a summary to a domain, we need to find the most frequent concepts for a certain domain. This analysis is performed by computing the frequencies of concepts in multiple texts from the same domain. On the MIMIC-III dataset, these are the most frequent concepts for each domain : 
-![Most frequent concepts in MIMIC-III per category](./resources/domain_adaptation_analysis_mimic.svg)
-
+<p align="center">
+  <img src="./resources/domain_adaptation_analysis_mimic.svg" />
+</p>
 
 ```python
 # Load ontology
