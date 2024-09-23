@@ -1,7 +1,7 @@
 # Ontology-based constrained decoding - EKAW 2024
 
 ## Overview
-This is the repository for the paper "Ontology-Constrained Generation of Domain-Specific Clinical Summaries" accepted at EKAW 2024. This method is a special domain adaptation technique based on dyanimc prompting and constrained beam search. The beam search algorithm is guided with an ontology.
+This is the repository for the paper "Ontology-Constrained Generation of Domain-Specific Clinical Summaries" accepted at EKAW 2024. This method is a special domain adaptation technique based on dynamic prompting and constrained beam search. The beam search algorithm is guided with an ontology.
 
 ## Prerequisites
 
